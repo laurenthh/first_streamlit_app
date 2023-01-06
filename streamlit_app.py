@@ -9,7 +9,9 @@ my_fruit_list = my_fruit_list.set_index('Fruit')
 fruits_selected = streamlit.multiselect("Pick some fruits:", list(my_fruit_list.index), ['Avocado','Strawberries'])
 fruits_to_show = my_fruit_list.loc[fruits_selected]
 
-fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon")
+fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + "kiwi")
+# pre-process the data
+fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
 
 streamlit.title('My Parents New Healthy Diner')
 
@@ -26,5 +28,6 @@ streamlit.dataframe(fruits_to_show)
 
 # New section to display fruitvice api response
 streamlit.header('Fruityvice Fruit Advice!')
-streamlit.text(fruityvice_response.json())
 
+# display the data in a nice table
+streamlit.dataframe(fruityvice_normalized)
