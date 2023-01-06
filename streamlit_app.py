@@ -67,4 +67,4 @@ if streamlit.button('Add a fruit to the list'):
   my_cnx.close()
   streamlit.text(data)
   
-streamlit.write('Thanks for adding ', add_fruit)
+streamlit.write('Thanks for adding ', add_my_fruit)
