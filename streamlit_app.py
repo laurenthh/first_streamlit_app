@@ -10,6 +10,11 @@ my_fruit_list = my_fruit_list.set_index('Fruit')
 fruits_selected = streamlit.multiselect("Pick some fruits:", list(my_fruit_list.index), ['Avocado','Strawberries'])
 fruits_to_show = my_fruit_list.loc[fruits_selected]
 
+my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
+my_cur = my_cnx.cursor()
+my_cur.execute("SELECT CURRENT_USER(), CURRENT_ACCOUNT(), CURRENT_REGION()")
+my_data_row = my_cur.fetchone()
+
 streamlit.title('My Parents New Healthy Diner')
 
 streamlit.header('Breakfast Favorites')
@@ -35,3 +40,6 @@ fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
 
 # display the data in a nice table
 streamlit.dataframe(fruityvice_normalized)
+
+streamlit.text("Hello from Snowflake:")
+streamlit.text(my_data_row)
