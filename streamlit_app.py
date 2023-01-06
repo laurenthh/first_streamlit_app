@@ -12,7 +12,7 @@ fruits_to_show = my_fruit_list.loc[fruits_selected]
 
 my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
 my_cur = my_cnx.cursor()
-my_cur.execute("SELECT CURRENT_USER(), CURRENT_ACCOUNT(), CURRENT_REGION()")
+my_cur.execute("select * from fruit_load_list")
 my_data_row = my_cur.fetchone()
 
 streamlit.title('My Parents New Healthy Diner')
@@ -41,5 +41,5 @@ fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
 # display the data in a nice table
 streamlit.dataframe(fruityvice_normalized)
 
-streamlit.text("Hello from Snowflake:")
+streamlit.text("The fruit load list contains:")
 streamlit.text(my_data_row)
